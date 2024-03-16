@@ -21,8 +21,10 @@ BUTTON_WIDTH = 100
 BUTTON_HEIGHT = 50
 
 # Grid configuration
-GRID_SIZE = 6  # Grid size of the maze, adjust according to your design
-CELL_SIZE = GRID_WIDTH // GRID_SIZE
+GRID_SIZE_W = 6
+GRID_SIZE_H = 6
+CELL_SIZE_W = GRID_WIDTH // GRID_SIZE_W
+CELL_SIZE_H = GRID_HEIGHT // GRID_SIZE_H
 LINE_WIDTH = 1  # Width of the lines in the grid
 
 # Define the reward for an empty field
@@ -59,3 +61,30 @@ walls = {
 
 # Starting position of the agent
 starting_position = (2, 3)
+
+# Define the possible actions and how they affect the position of the agent
+actions = {
+    'up': (0, -1),
+    'right': (1, 0),
+    'down': (0, 1),
+    'left': (-1, 0)
+}
+
+# Define the discount factor
+DISCOUNT_FACTOR = 0.99
+
+
+# Define the transition model
+def transition_model(a):
+    a_index = list(actions.keys()).index(a)
+    left_a = list(actions.keys())[(a_index - 1) % len(actions)]
+    right_a = list(actions.keys())[(a_index + 1) % len(actions)]
+    # Return the possible actions and their probabilities
+    return {left_a: 0.1, a: 0.8, right_a: 0.1}
+
+
+# Define the constants for the value iteration algorithm
+R_MAX = 1.00
+C = 0.10
+EPSILON = C * R_MAX
+SMALL_ENOUGH = EPSILON * (1 - DISCOUNT_FACTOR) / DISCOUNT_FACTOR
