@@ -62,7 +62,7 @@ def draw_text(screen, text, x, y):
 
 
 # Function to visualize the environment
-def visualize_env():
+def visualize_env(image_name):
     # Initialize the visualization
     pygame.init()
     screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
@@ -91,7 +91,67 @@ def visualize_env():
     pygame.display.flip()
 
     # Save the visualization
-    capture_window(screen, 'base_env', 0, 0, GRID_WIDTH, GRID_HEIGHT)
+    capture_window(screen, image_name, 0, 0, GRID_WIDTH, GRID_HEIGHT)
+
+    # Quit the visualization
+    pygame.quit()
+
+# Function to visualize the policy
+def visualize_policy(policy, image_name):
+    # Initialize the visualization
+    pygame.init()
+    screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+    pygame.display.set_caption('Value Iteration')
+    screen.fill(WHITE)
+    # Loop through all the states in the environment
+    for y in range(GRID_SIZE_H):
+        for x in range(GRID_SIZE_W):
+            # Define the color of the current state based on the utility
+            color = get_cell_color((x, y))
+            # Draw a rectangle for the current state
+            pygame.draw.rect(screen, color, (x * CELL_SIZE_W, y * CELL_SIZE_H, CELL_SIZE_W, CELL_SIZE_H))
+            # Draw the grid lines
+            pygame.draw.rect(screen, BLACK, (x * CELL_SIZE_W, y * CELL_SIZE_H, CELL_SIZE_W, CELL_SIZE_H), LINE_WIDTH)
+            # Check if the current state is not a wall
+            if (x, y) not in WALLS:
+                # Get the optimal action for the current state
+                action = policy[y][x]
+                # Draw the optimal action on the screen
+                draw_action(screen, action, x, y)
+    # Update the display
+    pygame.display.flip()
+
+    # Save the visualization
+    capture_window(screen, image_name, 0, 0, GRID_WIDTH, GRID_HEIGHT)
+
+    # Quit the visualization
+    pygame.quit()
+
+
+# Function to visualize the utility values
+def visualize_utility(env, image_name):
+    # Initialize the visualization
+    pygame.init()
+    screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+    pygame.display.set_caption('Value Iteration')
+    screen.fill(WHITE)
+    # Loop through all the states in the environment
+    for y in range(GRID_SIZE_H):
+        for x in range(GRID_SIZE_W):
+            # Define the color of the current state based on the utility
+            color = get_cell_color((x, y))
+            # Draw a rectangle for the current state
+            pygame.draw.rect(screen, color, (x * CELL_SIZE_W, y * CELL_SIZE_H, CELL_SIZE_W, CELL_SIZE_H))
+            # Draw the grid lines
+            pygame.draw.rect(screen, BLACK, (x * CELL_SIZE_W, y * CELL_SIZE_H, CELL_SIZE_W, CELL_SIZE_H), LINE_WIDTH)
+            if (x, y) not in WALLS:
+                # Add the utility value to the visualization
+                draw_text(screen, f'{env[y][x]:.2f}', x, y)
+    # Update the display
+    pygame.display.flip()
+
+    # Save the visualization
+    capture_window(screen, image_name, 0, 0, GRID_WIDTH, GRID_HEIGHT)
 
     # Quit the visualization
     pygame.quit()

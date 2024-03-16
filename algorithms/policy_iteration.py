@@ -2,7 +2,7 @@ from config import *
 from utils import *
 import pandas as pd
 import random
-from algorithm_utils import *
+from algorithms.algorithm_utils import *
 
 
 # Function to initialize the policy iteration maze environment
@@ -10,7 +10,7 @@ def init_pi_env():
     # Create a GRID_SIZE_H x GRID_SIZE_W grid matrix filled with zeros
     pi_env = [[0 for _ in range(GRID_SIZE_W)] for _ in range(GRID_SIZE_H)]
     # Create a GRID_SIZE_H x GRID_SIZE_W grid matrix filled with random actions (Initialize the policy randomly)
-    pi_policy = [[random.choice(ACTIONS) for _ in range(GRID_SIZE_W)] for _ in range(GRID_SIZE_H)]
+    pi_policy = [[random.choice(list(ACTIONS.keys())) for _ in range(GRID_SIZE_W)] for _ in range(GRID_SIZE_H)]
     # Return the environment and the policy matrices
     return pi_env, pi_policy
 
