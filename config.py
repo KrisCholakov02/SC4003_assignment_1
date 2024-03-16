@@ -16,6 +16,18 @@ GREEN = (0, 255, 0)
 ORANGE = (255, 165, 0)
 MEDIUM_GREY = (128, 128, 128)
 
+
+# Define a function to get the color of the cell based on its position
+def get_cell_color(pos):
+    if pos in REWARDS:
+        return GREEN
+    elif pos in HOLES:
+        return ORANGE
+    elif pos in WALLS:
+        return MEDIUM_GREY
+    else:
+        return WHITE
+
 # Define the size of the buttons
 BUTTON_WIDTH = 100
 BUTTON_HEIGHT = 50
@@ -31,7 +43,7 @@ LINE_WIDTH = 1  # Width of the lines in the grid
 EMPTY_REWARD = -0.04
 
 # Define hole locations
-holes = {
+HOLES = {
     (1, 1): -1,
     (5, 1): -1,
     (2, 2): -1,
@@ -40,7 +52,7 @@ holes = {
 }
 
 # Define reward locations
-rewards = {
+REWARDS = {
     (0, 0): +1,
     (2, 0): +1,
     (5, 0): +1,
@@ -51,7 +63,7 @@ rewards = {
 }
 
 # Define wall locations
-walls = {
+WALLS = {
     (1, 0),
     (4, 1),
     (1, 4),
@@ -60,10 +72,10 @@ walls = {
 }
 
 # Starting position of the agent
-starting_position = (2, 3)
+STARTING_POSITION = (2, 3)
 
 # Define the possible actions and how they affect the position of the agent
-actions = {
+ACTIONS = {
     'up': (0, -1),
     'right': (1, 0),
     'down': (0, 1),
@@ -76,9 +88,9 @@ DISCOUNT_FACTOR = 0.99
 
 # Define the transition model
 def transition_model(a):
-    a_index = list(actions.keys()).index(a)
-    left_a = list(actions.keys())[(a_index - 1) % len(actions)]
-    right_a = list(actions.keys())[(a_index + 1) % len(actions)]
+    a_index = list(ACTIONS.keys()).index(a)
+    left_a = list(ACTIONS.keys())[(a_index - 1) % len(ACTIONS)]
+    right_a = list(ACTIONS.keys())[(a_index + 1) % len(ACTIONS)]
     # Return the possible actions and their probabilities
     return {left_a: 0.1, a: 0.8, right_a: 0.1}
 

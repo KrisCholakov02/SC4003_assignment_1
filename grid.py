@@ -3,6 +3,7 @@ import random
 import pygame
 from config import *
 
+
 # Define the Grid class to manage the grid
 class Grid:
     def __init__(self, screen, rewards, holes, walls, start_pos):

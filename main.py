@@ -54,7 +54,7 @@ button_right = pygame_gui.elements.UIButton(
     manager=manager)
 
 # Initialize grid
-grid = Grid(screen, rewards, holes, walls, starting_position)
+grid = Grid(screen, REWARDS, HOLES, WALLS, STARTING_POSITION)
 
 clock = pygame.time.Clock()
 is_running = True
