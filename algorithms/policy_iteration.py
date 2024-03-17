@@ -54,7 +54,7 @@ def policy_evaluation(pi_env, pi_policy, iteration, results_csv_name):
         # Update the environment with the new utilities
         pi_env = new_pi_env
         # Break the loop if the error is smaller than the SMALL_ENOUGH threshold
-        if error < SMALL_ENOUGH:
+        if error < TOLERANCE:
             break
 
     # Add the results to the CSV file and save it

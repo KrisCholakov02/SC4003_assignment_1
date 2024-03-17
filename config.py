@@ -5,7 +5,7 @@ import maze_configs.labyrinth as labyrinth_config
 import maze_configs.blockages as blockages_config
 
 # Constants for the game
-GRID_WIDTH, GRID_HEIGHT = 420, 420  # Size of the window, adjust as per your layout's requirement
+GRID_WIDTH, GRID_HEIGHT = 720, 720  # Size of the window, adjust as per your layout's requirement
 FPS = 30  # Frames per second
 
 # Constant for the right container
@@ -52,8 +52,10 @@ MAZE_CONFIG = 'base'  # Possible values: 'base', 'increased_size', 'labyrinth', 
 def get_cell_size_w():
     return GRID_WIDTH // GRID_SIZE_W
 
+
 def get_cell_size_h():
     return GRID_HEIGHT // GRID_SIZE_H
+
 
 def get_rewards():
     return REWARDS
@@ -70,14 +72,18 @@ def get_walls():
 def get_starting_position():
     return STARTING_POSITION
 
+
 def get_grid_size_h():
     return GRID_SIZE_H
+
 
 def get_grid_size_w():
     return GRID_SIZE_W
 
+
 def get_empty_reward():
     return EMPTY_REWARD
+
 
 def set_maze_config(maze_config):
     global MAZE_CONFIG, REWARDS, HOLES, WALLS, STARTING_POSITION, GRID_SIZE_H, GRID_SIZE_W, EMPTY_REWARD
@@ -141,7 +147,7 @@ def transition_model(a):
 
 
 # Define the constants for the value iteration algorithm
-R_MAX = 1.00
-C = 0.10
-EPSILON = C * R_MAX
-SMALL_ENOUGH = EPSILON * (1 - DISCOUNT_FACTOR) / DISCOUNT_FACTOR
+R_MAX = 1  # Maximum reward
+C = 0.10  # Constant for the tolerance
+EPSILON = C * R_MAX  # Calculate the epsilon
+TOLERANCE = EPSILON * (1 - DISCOUNT_FACTOR) / DISCOUNT_FACTOR

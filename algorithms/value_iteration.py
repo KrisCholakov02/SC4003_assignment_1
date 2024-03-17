@@ -72,7 +72,7 @@ def value_iteration(vi_env, results_csv_name='vi_results'):
         # Update the environment with the new environment
         vi_env = new_vi_env
         # If the error is smaller than the threshold, break the loop
-        if error < SMALL_ENOUGH * (1 - DISCOUNT_FACTOR) / DISCOUNT_FACTOR:
+        if error < TOLERANCE * (1 - DISCOUNT_FACTOR) / DISCOUNT_FACTOR:
             break
 
     # Save the results to a CSV file
