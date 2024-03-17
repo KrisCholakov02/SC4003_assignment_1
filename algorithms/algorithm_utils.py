@@ -9,10 +9,10 @@ def is_wall(s):
 
 
 # Function to calculate the utility of the next state based on the current state and action
-def next_state_utility(pi_env, s, a):
+def next_state_utility(env, s, a):
     # Check if the current state is a wall
     if s in get_walls():
-        return pi_env[s[1]][s[0]]
+        return env[s[1]][s[0]]
 
     # Calculate the next state based on the action
     new_x, new_y = s
@@ -22,20 +22,20 @@ def next_state_utility(pi_env, s, a):
     # Check if the next state is a wall or out of bounds
     if is_wall((new_x, new_y)):
         # Return the utility of the current state
-        return pi_env[s[1]][s[0]]
+        return env[s[1]][s[0]]
     else:
         # Return the utility of the next state
-        return pi_env[new_y][new_x]
+        return env[new_y][new_x]
 
 
 # Function to calculate the expected utility of taking action 'a' in state 's'
 # Expected utility for state s and action a: EU(s, a) = Σ_s' P(s' | s, a) * U_i(s')
-def expected_utility(vi_env, s, a):
+def expected_utility(env, s, a):
     # Initialize the expected utility to 0
     exp_utility = 0
     # Loop through all possible next states (according to the transition model) and calculate the expected utility
     for action, prob in transition_model(a).items():
-        exp_utility += prob * next_state_utility(vi_env, s, action)
+        exp_utility += prob * next_state_utility(env, s, action)
     return exp_utility
 
 
