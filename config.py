@@ -148,6 +148,6 @@ def transition_model(a):
 
 # Define the constants for the value iteration algorithm
 R_MAX = 1  # Maximum reward
-C = 0.10  # Constant for the tolerance
+C = 0.1  # Constant for the tolerance
 EPSILON = C * R_MAX  # Calculate the epsilon
 TOLERANCE = EPSILON * (1 - DISCOUNT_FACTOR) / DISCOUNT_FACTOR
