@@ -37,7 +37,7 @@ def bellman_equation_pi(vi_env, s, action):
 
 # Function to perform policy evaluation
 def policy_evaluation(pi_env, pi_policy, iteration, results_csv_name):
-    # Iterate until the error is smaller than the SMALL_ENOUGH threshold
+    # Iterate until the error is smaller than the TOLERANCE threshold
     while True:
         # Create a new environment copy to store the updated utilities
         new_pi_env = copy_env(pi_env)
@@ -53,7 +53,7 @@ def policy_evaluation(pi_env, pi_policy, iteration, results_csv_name):
 
         # Update the environment with the new utilities
         pi_env = new_pi_env
-        # Break the loop if the error is smaller than the SMALL_ENOUGH threshold
+        # Break the loop if the error is smaller than the TOLERANCE threshold
         if error < TOLERANCE:
             break
 
