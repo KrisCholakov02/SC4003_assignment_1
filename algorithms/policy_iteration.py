@@ -114,4 +114,4 @@ def policy_iteration(pi_env, pi_policy, results_csv_name='pi_results'):
             break
 
     # Return the updated environment, policy and the iteration counter
-    return pi_policy, iteration_cnt
+    return pi_env, pi_policy, iteration_cnt
