@@ -36,7 +36,7 @@ def bellman_equation_pi(vi_env, s, action):
 
 
 # Function to perform policy evaluation
-def policy_evaluation(pi_env, pi_policy, iteration, results_csv_name='pi_results'):
+def policy_evaluation(pi_env, pi_policy, iteration, results_csv_name):
     # Iterate until the error is smaller than the SMALL_ENOUGH threshold
     while True:
         # Create a new environment copy to store the updated utilities
@@ -73,14 +73,14 @@ def policy_evaluation(pi_env, pi_policy, iteration, results_csv_name='pi_results
 
 
 # Function to perform policy iteration
-def policy_iteration(pi_env, pi_policy):
+def policy_iteration(pi_env, pi_policy, results_csv_name='pi_results'):
     # Initialize the iteration counter to 0
     iteration_cnt = 0
     while True:
         # Increment the iteration counter for each iteration
         iteration_cnt += 1
         # Perform policy evaluation
-        new_pi_env = policy_evaluation(pi_env, pi_policy, iteration_cnt)
+        new_pi_env = policy_evaluation(pi_env, pi_policy, iteration_cnt, results_csv_name)
         # Initialize the policy_stable flag to True (used to check if the policy has converged)
         policy_stable = True
         # Loop through all the states in the environment

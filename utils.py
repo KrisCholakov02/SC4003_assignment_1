@@ -29,4 +29,10 @@ def capture_window(screen, name='', start_x=0, start_y=0, width=WINDOW_WIDTH, he
 
 # Function to return a copy of an environment
 def copy_env(env):
-    return [[env[y][x] for x in range(GRID_SIZE_W)] for y in range(GRID_SIZE_H)]
+    return [[env[y][x] for x in range(get_grid_size_w())] for y in range(get_grid_size_h())]
+
+
+# Function to force the window to close by posting a QUIT event
+def force_close_pygame_window():
+    quit_event = pygame.event.Event(pygame.QUIT)
+    pygame.event.post(quit_event)

@@ -45,7 +45,7 @@ def bellman_equation_vi(vi_env, s):
 # Function to perform value iteration
 def value_iteration(vi_env, results_csv_name='vi_results'):
     # Define the pandas DataFrame to store the value iteration results
-    vi_results = pd.DataFrame(columns=['Iteration', 'x', 'y', 'Utility'])
+    vi_results_list = []
 
     # Initialize the iteration counter to 0
     iteration_cnt = 0
@@ -67,8 +67,7 @@ def value_iteration(vi_env, results_csv_name='vi_results'):
                 error = max(error, abs(max_utility - vi_env[y][x]))
 
                 # Add the results to the pandas DataFrame
-                new_vi_result = pd.DataFrame({'Iteration': [iteration_cnt], 'x': [x], 'y': [y], 'Utility': [max_utility]})
-                vi_results = pd.concat([vi_results, new_vi_result], ignore_index=True)
+                vi_results_list.append({'Iteration': iteration_cnt, 'x': x, 'y': y, 'Utility': max_utility})
 
         # Update the environment with the new environment
         vi_env = new_vi_env
@@ -77,6 +76,7 @@ def value_iteration(vi_env, results_csv_name='vi_results'):
             break
 
     # Save the results to a CSV file
+    vi_results = pd.DataFrame(vi_results_list)
     vi_results.to_csv(get_path() + '/results/value_iteration/' + f'{results_csv_name}.csv', index=False)
 
     # Return the updated environment and the iteration counter

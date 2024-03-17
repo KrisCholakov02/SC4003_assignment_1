@@ -93,8 +93,11 @@ def visualize_env(image_name):
     # Save the visualization
     capture_window(screen, image_name, 0, 0, GRID_WIDTH, GRID_HEIGHT)
 
+    # Close the visualization
+    pygame.display.quit()
     # Quit the visualization
     pygame.quit()
+
 
 # Function to visualize the policy
 def visualize_policy(policy, image_name):
@@ -124,6 +127,8 @@ def visualize_policy(policy, image_name):
     # Save the visualization
     capture_window(screen, image_name, 0, 0, GRID_WIDTH, GRID_HEIGHT)
 
+    # Close the visualization
+    pygame.display.quit()
     # Quit the visualization
     pygame.quit()
 
@@ -153,5 +158,7 @@ def visualize_utility(env, image_name):
     # Save the visualization
     capture_window(screen, image_name, 0, 0, GRID_WIDTH, GRID_HEIGHT)
 
+    # Close the visualization
+    pygame.display.quit()
     # Quit the visualization
     pygame.quit()
