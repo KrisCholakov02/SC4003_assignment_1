@@ -7,8 +7,8 @@ from grid import *
 
 # Function to initialize the value iteration maze environment
 def init_vi_env():
-    # Create a GRID_SIZE_H x GRID_SIZE_W grid matrix filled with zeros
-    vi_env = [[0 for _ in range(GRID_SIZE_W)] for _ in range(GRID_SIZE_H)]
+    # Create a get_grid_size_h() x get_grid_size_w() grid matrix filled with zeros
+    vi_env = [[0 for _ in range(get_grid_size_w())] for _ in range(get_grid_size_h())]
     return vi_env
 
 
@@ -16,14 +16,14 @@ def init_vi_env():
 # Bellman equation: U_(i+1)(s) = R(s) + γ * max_(a ∈ A(s)) ∑_(s′) P(s′ | s, a) * U_i(s′)
 def bellman_equation_vi(vi_env, s):
     # Check if the current state is a reward, hole, wall or empty field and assign the corresponding reward
-    if s in REWARDS:  # If the current state is a reward
-        reward = REWARDS[s]
-    elif s in HOLES:  # If the current state is a hole
-        reward = HOLES[s]
-    elif s in WALLS:  #
+    if s in get_rewards():  # If the current state is a reward
+        reward = get_rewards()[s]
+    elif s in get_holes():  # If the current state is a hole
+        reward = get_holes()[s]
+    elif s in get_walls():  #
         reward = 0
     else:  # If the current state is an empty field
-        reward = EMPTY_REWARD
+        reward = get_empty_reward()
 
     # Defining the maximum utility --> max_(a ∈ A(s)) ∑_(s′) P(s′ | s, a) * U_i(s′)
     max_utility = float('-inf')
@@ -43,7 +43,10 @@ def bellman_equation_vi(vi_env, s):
 
 
 # Function to perform value iteration
-def value_iteration(vi_env):
+def value_iteration(vi_env, results_csv_name='vi_results'):
+    # Define the pandas DataFrame to store the value iteration results
+    vi_results = pd.DataFrame(columns=['Iteration', 'x', 'y', 'Utility'])
+
     # Initialize the iteration counter to 0
     iteration_cnt = 0
     while True:
@@ -54,8 +57,8 @@ def value_iteration(vi_env):
         # Initialize the error to 0
         error = 0
         # Loop through all the states in the environment
-        for y in range(GRID_SIZE_H):
-            for x in range(GRID_SIZE_W):
+        for y in range(get_grid_size_h()):
+            for x in range(get_grid_size_w()):
                 # Calculate the Bellman equation result and the best action for the current state
                 max_utility, best_action = bellman_equation_vi(vi_env, (x, y))
                 # Update the new environment with the Bellman equation result
@@ -63,11 +66,18 @@ def value_iteration(vi_env):
                 # Update the error if the difference between the new and old utility is greater than the current error
                 error = max(error, abs(max_utility - vi_env[y][x]))
 
+                # Add the results to the pandas DataFrame
+                new_vi_result = pd.DataFrame({'Iteration': [iteration_cnt], 'x': [x], 'y': [y], 'Utility': [max_utility]})
+                vi_results = pd.concat([vi_results, new_vi_result], ignore_index=True)
+
         # Update the environment with the new environment
         vi_env = new_vi_env
         # If the error is smaller than the threshold, break the loop
         if error < SMALL_ENOUGH * (1 - DISCOUNT_FACTOR) / DISCOUNT_FACTOR:
             break
+
+    # Save the results to a CSV file
+    vi_results.to_csv(get_path() + '/results/value_iteration/' + f'{results_csv_name}.csv', index=False)
 
     # Return the updated environment and the iteration counter
     return vi_env, iteration_cnt
@@ -75,11 +85,11 @@ def value_iteration(vi_env):
 
 # Function to generate the optimal policy based on the value iteration results
 def generate_policy(vi_env):
-    # Create a GRID_SIZE_H x GRID_SIZE_W grid matrix to store the optimal policies for each state
-    policy = [[None for _ in range(GRID_SIZE_W)] for _ in range(GRID_SIZE_H)]
+    # Create a get_grid_size_h() x get_grid_size_w() grid matrix to store the optimal policies for each state
+    policy = [[None for _ in range(get_grid_size_w())] for _ in range(get_grid_size_h())]
     # Loop through all the states in the environment
-    for y in range(GRID_SIZE_H):
-        for x in range(GRID_SIZE_W):
+    for y in range(get_grid_size_h()):
+        for x in range(get_grid_size_w()):
             # Initialize the maximum utility to negative infinity and the best action to None
             max_utility = float('-inf')
             best_action = None
