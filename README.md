@@ -34,15 +34,15 @@ A key contribution of this project is the development of a **mini-game environme
 ```
 assignment1/
 │── algorithms/
-│   ├── value_iteration.py    # Implementation of Value Iteration
-│   ├── policy_iteration.py   # Implementation of Policy Iteration
-│   ├── algorithm_utils.py    # Utility functions for MDP handling
+│   ├── value_iteration.py     # Implementation of Value Iteration
+│   ├── policy_iteration.py    # Implementation of Policy Iteration
+│   ├── algorithm_utils.py     # Utility functions for MDP handling
 │── maze_configs/
-│   ├── base.py               # Base Maze configuration
-│   ├── blockages.py          # Blockages Maze configuration
-│   ├── increased_size.py     # Increased-Size Maze configuration
-│   ├── labyrinth.py          # Labyrinth Maze configuration
-│── assets/                   # Visual assets for the interactive environment
+│   ├── base.py                # Base Maze configuration
+│   ├── blockages.py           # Blockages Maze configuration
+│   ├── increased_size.py      # Increased-Size Maze configuration
+│   ├── labyrinth.py           # Labyrinth Maze configuration
+│── assets/                    # Visual assets for the interactive environment
 │── results/                   # CSV files containing computed utilities
 │── plots/                     # Generated plots for analysis
 │── main.py                    # Runs the interactive PyGame environment
